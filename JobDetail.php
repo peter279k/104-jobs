@@ -4,6 +4,7 @@ namespace peter\JobDetail;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
+use GuzzleHttp\Exception\ConnectException;
 use Symfony\Component\DomCrawler\Crawler;
 
 class JobDetail
@@ -15,20 +16,6 @@ class JobDetail
     public function __construct()
     {
 
-    }
-
-    public function httpRequest()
-    {
-        $len = count($this->json);
-        $client = new Client();
-        for ($index=0;$index<$len;$index++) {
-            $name = $this->json[$index]['job_name'];
-            $link = $this->json[$index]['job_link'];
-            $response = $client->request('GET', $link, ['verify' => false]);
-            $this->parseJson($response->getBody()->getContents(), $index);
-        }
-
-        file_put_contents('jobs_rd.json', json_encode($this->rdArr));
     }
 
     public function getPage($url)
@@ -84,7 +71,7 @@ class JobDetail
     public function parseJson()
     {
         $len = count($this->jobsArr);
-        $indexRd = count($this->rdArr);
+        $indexRd = 0;
         $baseUrl = 'https://www.104.com.tw';
 
         for ($index=0;$index<$len;$index++) {
@@ -97,7 +84,7 @@ class JobDetail
             }
         }
 
-        file_put_contents('./rd_jobs.json', json_encode($rdArr));
+        file_put_contents('./rd_jobs.json', json_encode($this->rdArr));
     }
 
     private function requestInterface($url)
@@ -107,6 +94,8 @@ class JobDetail
             $response = $client->request('GET', $url, ['verify' => false]);
             $contents = $response->getBody()->getContents();
         } catch (ClientException $e) {
+            return false;
+        } catch (ConnectException $e) {
             return false;
         }
 
