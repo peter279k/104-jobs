@@ -1,0 +1,7 @@
+{
+    "require": {
+        "guzzlehttp/guzzle": "^6.2",
+        "symfony/dom-crawler": "^3.1",
+        "symfony/css-selector": "^3.1"
+    }
+}
