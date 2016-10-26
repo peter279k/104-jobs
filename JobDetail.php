@@ -74,7 +74,7 @@ class JobDetail
         for ($index=0;$index<$len;$index++) {
             $contents = $this->requestInterface($baseUrl.$this->jobsArr[$index]['job_link']);
 
-            if (stristr($contents, '研發替代役') !== false) {
+            if (stristr($contents, '研發替代役') !== false ||stristr($contents, '研替') !== false) {
                 $this->rdArr[$indexRd]['job_name'] = $this->jobsArr[$index]['job_name'];
                 $this->rdArr[$indexRd]['job_link'] = $this->jobsArr[$index]['job_link'];
                 $indexRd++;
