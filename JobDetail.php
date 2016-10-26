@@ -58,9 +58,6 @@ class JobDetail
                     $this->jobsArr[$index]['job_link'] = $jobLink;
                     $index++;
                     file_put_contents('./jobs.txt', $jobName.PHP_EOL.$jobLink.PHP_EOL, FILE_APPEND);
-                } else {
-                    echo $jobName.PHP_EOL;
-                    echo $jobLink.PHP_EOL;
                 }
             }
         }
