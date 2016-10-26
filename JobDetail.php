@@ -87,6 +87,11 @@ class JobDetail
         file_put_contents('./rd_jobs.json', json_encode($this->rdArr));
     }
 
+    public function printResult()
+    {
+        return $jobs = json_decode(file_get_contents('./rd_jobs.json'), true);
+    }
+
     private function requestInterface($url)
     {
         try {
